@@ -1,0 +1,14 @@
+server:
+  port: ${SERVER_PORT:8080}
+
+application-profile:
+  default: ${DEFAULT_APPLICATION_PROFILE_PATH:classpath:default.shaclc}
+
+sparql:
+  endpoint: ${SPARQL_ENDPOINT:http://localhost:8890}
+
+spring:
+  servlet:
+    multipart:
+      max-request-size: ${MAX_REQUEST_SIZE:512MB}
+      max-file-size: ${MAX_FILE_SIZE:512MB}

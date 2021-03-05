@@ -1,0 +1,15 @@
+version: '3.4'
+services:
+  validation:
+    build: ../
+    volumes:
+      - ./config:/config
+    ports:
+      - 8090:8090
+    environment:
+      SERVER_PORT: "8090"
+      DEFAULT_APPLICATION_PROFILE_PATH: "file:/config/applicationProfile.ttl"
+      MAX_REQUEST_SIZE: "512MB"
+      MAX_FILE_SIZE: "512MB"
+      JAVA_OPTS: "-Xms512m -Xmx512m"
+    restart: always
