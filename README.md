@@ -114,3 +114,50 @@ ex:Momo
 `Content-Type: multipart/form-data`
 
 `Form data: first=> first.ttl, second => second.ttl`
+
+#### 10. Query validation report
+
+```
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+
+SELECT * WHERE {
+ ?s
+    a sh:ValidationReport;
+   	sh:conforms ?conforms.
+
+ OPTIONAL {
+   ?s sh:result ?result.
+   OPTIONAL {
+    	?result sh:detail ?detail.
+    	?detail ?p_detail ?o_detail.
+   }
+   OPTIONAL {
+    	?result sh:sh:focusNode ?focusNode.
+   }
+   OPTIONAL {
+    	?result sh:resultMessage ?resultMessage.
+   }
+   OPTIONAL {
+    	?result sh:resultPath ?resultPath.
+   }
+   OPTIONAL {
+    	?result sh:resultSeverity ?resultSeverity.
+    	?resultSeverity ?p_resultSeverity ?o_resultSeverity.
+   }
+   OPTIONAL {
+    	?result sh:sourceConstraint ?sourceConstraint.
+   }
+   OPTIONAL {
+    	?result sh:sourceShape ?sourceShape.
+    	?sourceShape ?p_sourceShape ?o_sourceShape.
+   }
+   OPTIONAL {
+    	?result sh:sourceConstraintComponent ?sourceConstraintComponent.
+    	?sourceConstraintComponent ?p_sourceConstraintComponent ?o_sourceConstraintComponent.
+   }
+   OPTIONAL {
+    	?result sh:value ?value.
+   }
+ }
+}
+```
