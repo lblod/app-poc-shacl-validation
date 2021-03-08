@@ -1,0 +1,70 @@
+
+		Mon Mar 08 2021
+15:55:31 OpenLink Virtuoso Universal Server
+15:55:31 Version 07.20.3215-pthreads for Linux as of Aug 21 2019
+15:55:31 uses parts of OpenSSL, PCRE, Html Tidy
+15:55:32 SQL Optimizer enabled (max 1000 layouts)
+15:55:32 Compiler unit is timed at 0.000402 msec
+15:55:36 Checkpoint started
+15:55:36 Roll forward started
+15:55:36 Roll forward complete
+15:55:36 Checkpoint started
+15:55:36 Checkpoint finished, log reused
+15:55:36 Checkpoint started
+15:55:36 Checkpoint finished, log reused
+15:55:39 Checkpoint started
+15:55:39 Checkpoint finished, log reused
+15:55:39 Checkpoint started
+15:55:40 Checkpoint finished, log reused
+15:55:40 Checkpoint started
+15:55:40 Checkpoint finished, log reused
+15:55:40 PL LOG: Installing Virtuoso Conductor version 1.00.8754 (DAV)
+15:55:40 PL LOG: Installing with dependencies Virtuoso Conductor version 1.00.8754/2019-08-21 11:12 (DAV)
+15:55:40 Checkpoint started
+15:55:40 Checkpoint finished, log reused
+15:55:44 Checkpoint started
+15:55:44 Checkpoint finished, log reused
+15:55:44 PL LOG: Installation with dependencies complete
+15:55:44 Checkpoint started
+15:55:45 Checkpoint finished, log reused
+15:55:45 HTTP/WebDAV server online at 8890
+15:55:45 Server online at 1111 (pid 20)
+15:55:45 Server received signal 15
+15:55:45 Initiating quick shutdown
+15:55:45 Server shutdown complete
+
+		Mon Mar 08 2021
+15:55:45 OpenLink Virtuoso Universal Server
+15:55:45 Version 07.20.3215-pthreads for Linux as of Aug 21 2019
+15:55:45 uses parts of OpenSSL, PCRE, Html Tidy
+15:55:45 Database version 3126
+15:55:45 SQL Optimizer enabled (max 1000 layouts)
+15:55:46 Compiler unit is timed at 0.000218 msec
+15:55:48 Roll forward started
+15:55:48     8 transactions, 1957 bytes replayed (100 %)
+15:55:48 Roll forward complete
+15:55:48 Checkpoint started
+15:55:48 Checkpoint finished, log reused
+15:55:48 HTTP/WebDAV server online at 8890
+15:55:48 Server online at 1111 (pid 1)
+15:56:12 Server received signal 15
+15:56:12 Initiating quick shutdown
+15:56:12 Server shutdown complete
+
+		Mon Mar 08 2021
+15:57:23 OpenLink Virtuoso Universal Server
+15:57:23 Version 07.20.3215-pthreads for Linux as of Aug 21 2019
+15:57:23 uses parts of OpenSSL, PCRE, Html Tidy
+15:57:23 Database version 3126
+15:57:23 SQL Optimizer enabled (max 1000 layouts)
+15:57:24 Compiler unit is timed at 0.000145 msec
+15:57:25 Roll forward started
+15:57:25     3 transactions, 185 bytes replayed (100 %)
+15:57:25 Roll forward complete
+15:57:25 Checkpoint started
+15:57:25 Checkpoint finished, log reused
+15:57:25 HTTP/WebDAV server online at 8890
+15:57:25 Server online at 1111 (pid 1)
+15:57:33 ERRS_0 37000 SP029 TURTLE RDF loader, line 56: Missing predicate and object between top-level blank node subject and a dot
+15:57:33 ERRS_0 37000 SP029 TURTLE RDF loader, line 53: syntax error
+15:57:33 ERRS_0 37000 SP029 TURTLE RDF loader, line 56: Missing predicate and object between top-level blank node subject and a dot

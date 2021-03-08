@@ -1,13 +1,19 @@
 version: '3.4'
 services:
+  db:
+    image: tenforce/virtuoso:1.3.2-virtuoso7.2.2
+    environment:
+      SPARQL_UPDATE: "true"
+      DEFAULT_GRAPH: "http://mu.semte.ch/application"
+    volumes:
+      - ./data/db:/data
+      - ./config/virtuoso/virtuoso.ini:/data/virtuoso.ini
   validation:
     build: ../
     volumes:
       - ./config:/config
     ports:
       - 8090:8090
-    links:
-      - db:db
     environment:
       SERVER_PORT: "8090"
       DEFAULT_APPLICATION_PROFILE_PATH: "file:/config/applicationProfile.ttl"
