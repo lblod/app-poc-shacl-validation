@@ -1,8 +1,8 @@
 package mu.semtech.poc.shacl.rest;
 
-import mu.semtech.poc.shacl.rdf.JsonReport;
 import mu.semtech.poc.shacl.rdf.ModelUtils;
 import mu.semtech.poc.shacl.rdf.ShaclService;
+import mu.semtech.poc.shacl.rdf.SparqlService;
 import org.apache.jena.riot.Lang;
 import org.apache.jena.shacl.ValidationReport;
 import org.springframework.http.MediaType;
@@ -18,15 +18,18 @@ import static org.springframework.http.MediaType.MULTIPART_FORM_DATA_VALUE;
 @CrossOrigin("*")
 public class ValidationApi {
     private final ShaclService service;
+    private final SparqlService sparqlService;
 
-    public ValidationApi(ShaclService service) {
+    public ValidationApi(ShaclService service, SparqlService sparqlService) {
         this.service = service;
+        this.sparqlService = sparqlService;
     }
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = CONTENT_TYPE_TURTLE)
-    public ResponseEntity<JsonReport> validate(@RequestBody String dataModel) {
+    public ResponseEntity<Void> validate(@RequestBody String dataModel) {
         ValidationReport report = service.validate(dataModel, Lang.TURTLE);
-        return ResponseEntity.ok(service.reportToJson(report));
+        sparqlService.persist(report.getModel());
+        return ResponseEntity.ok().build();
     }
 
     @PostMapping(value = "/file-with-shacl", produces = CONTENT_TYPE_TURTLE, consumes = MULTIPART_FORM_DATA_VALUE)

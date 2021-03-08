@@ -1,14 +1,17 @@
 package mu.semtech.poc.shacl.rdf;
 
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.apache.jena.graph.Graph;
 import org.apache.jena.graph.NodeFactory;
+import org.apache.jena.rdf.model.Model;
 import org.apache.jena.riot.Lang;
 import org.apache.jena.shacl.ShaclValidator;
 import org.apache.jena.shacl.Shapes;
 import org.apache.jena.shacl.ValidationReport;
 import org.apache.jena.shacl.engine.ShaclPaths;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.apache.jena.vocabulary.RDF;
@@ -22,6 +25,7 @@ import static mu.semtech.poc.shacl.rdf.ModelUtils.filenameToLang;
 import static mu.semtech.poc.shacl.rdf.ModelUtils.toModel;
 
 @Service
+@Slf4j
 public class ShaclService {
   private final Shapes applicationProfile;
 
@@ -56,6 +60,7 @@ public class ShaclService {
     Graph shapesGraph = toModel(shapesModel, shapesLang).getGraph();
     Graph dataGraph = toModel(dataModel, modelLang).getGraph();
     Shapes shapes = Shapes.parse(shapesGraph);
+    Model model = null;
     return ShaclValidator.get().validate(shapes, dataGraph);
   }
 
@@ -115,16 +120,6 @@ public class ShaclService {
   public Graph filter(MultipartFile dataModel, MultipartFile shapesFile) {
     return filter(dataModel.getInputStream(), filenameToLang(dataModel.getOriginalFilename()),
             shapesFile.getInputStream(), filenameToLang(shapesFile.getOriginalFilename()));
-  }
-
-  public JsonReport reportToJson(ValidationReport report) {
-    List<JsonReport.Entry> entries = report.getEntries().stream()
-            .map(e -> JsonReport.Entry.builder()
-                    .property(ShaclPaths.pathToString(e.resultPath()))
-                    .message(e.message())
-                    .build()
-            ).collect(Collectors.toList());
-    return JsonReport.builder().conforms(report.conforms()).entries(entries).build();
   }
 
 }

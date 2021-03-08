@@ -6,6 +6,9 @@ application-profile:
 
 sparql:
   endpoint: ${SPARQL_ENDPOINT:http://localhost:8890}
+  username: ${SPARQL_USERNAME:dba}
+  password: ${SPARQL_PASSWORD:dba}
+  defaultGraphUri: ${APPLICATION_DEFAULT_GRAPH:http://mu.semte.ch/application}
 
 spring:
   servlet:
