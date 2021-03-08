@@ -32,3 +32,6 @@ build/
 
 mvnw*
 .mvn/
+
+
+example/data/db/**
