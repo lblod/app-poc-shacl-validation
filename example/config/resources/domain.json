@@ -24,16 +24,19 @@
                     "target": "validationResult",
                     "cardinality": "many"
                 }
-            }
+            },
+            "new-resource-base": "http://data.lblod.info/validationReport/"
         },
         "abstract-results": {
             "name": "abstractResult",
             "class": "sh:AbstractResult",
             "attributes": {
                 "focus-node": {
+                    "type":"url",
                     "predicate": "sh:focusNode"
                 },
                 "result-message": {
+                    "type":"string",
                     "predicate": "sh:resultMessage"
                 },
                 "result-path": {
@@ -41,9 +44,11 @@
                     "predicate": "sh:resultPath"
                 },
                 "source-constraint": {
+                    "type":"string",
                     "predicate": "sh:sourceConstraint"
                 },
                 "value": {
+                    "type":"string",
                     "predicate": "sh:value"
                 }
             },
@@ -68,11 +73,13 @@
                     "target": "constraintComponent",
                     "cardinality": "one"
                 }
-            }
+            },
+            "new-resource-base": "http://data.lblod.info/abstractResult/"
         },
         "validation-results": {
             "name": "validationResult",
-            "class": "sh:ValidationResult"
+            "class": "sh:ValidationResult",
+            "new-resource-base": "http://data.lblod.info/validationResult/"
         },
         "severity": {
             "name": "severity",
@@ -83,15 +90,18 @@
                     "type": "string",
                     "predicate": "rdfs:label"
                 }
-            }
+            },
+            "new-resource-base": "http://data.lblod.info/severity/"
         },
         "shape": {
             "name": "shape",
-            "class": "sh:Shape"
+            "class": "sh:Shape",
+            "new-resource-base": "http://data.lblod.info/shape/"
         },
-        "constraintComponent": {
+        "constraint-component": {
             "name": "constraintComponent",
-            "class": "sh:ConstraintComponent"
+            "class": "sh:ConstraintComponent",
+            "new-resource-base": "http://data.lblod.info/constraintComponent/"
         }
     }
 }
