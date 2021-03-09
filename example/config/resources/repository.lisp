@@ -20,7 +20,7 @@
 ;; commented out domain.lisp.
 
 (add-prefix "rdfs" "http://www.w3.org/2000/01/rdf-schema#")
-(add-prefix "sh" "http://www.w3.org/ns/shacl#"
+(add-prefix "sh" "http://www.w3.org/ns/shacl#")
 
 
 ;;;;;
