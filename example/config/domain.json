@@ -1,0 +1,97 @@
+{
+    "version": "0.1",
+    "prefixes": {
+        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+        "sh": "http://www.w3.org/ns/shacl#"
+    },
+    "resources": {
+        "validation-report": {
+            "name": "validationReport",
+            "class": "sh:ValidationReport",
+            "attributes": {
+                "conforms": {
+                    "type": "boolean",
+                    "predicate": "sh:conforms"
+                },
+                "shapes-graph-well-formed": {
+                    "type": "boolean",
+                    "predicate": "sh:shapesGraphWellFormed"
+                }
+            },
+            "relationships": {
+                "results": {
+                    "predicate": "sh:result",
+                    "target": "validationResult",
+                    "cardinality": "many"
+                }
+            }
+        },
+        "abstract-results": {
+            "name": "abstractResult",
+            "class": "sh:AbstractResult",
+            "attributes": {
+                "focus-node": {
+                    "predicate": "sh:focusNode"
+                },
+                "result-message": {
+                    "predicate": "sh:resultMessage"
+                },
+                "result-path": {
+                    "type":"url",
+                    "predicate": "sh:resultPath"
+                },
+                "source-constraint": {
+                    "predicate": "sh:sourceConstraint"
+                },
+                "value": {
+                    "predicate": "sh:value"
+                }
+            },
+            "relationships": {
+                "details": {
+                    "predicate": "sh:detail",
+                    "target": "abstractResult",
+                    "cardinality": "many"
+                },
+                "result-severity": {
+                    "predicate": "sh:resultSeverity",
+                    "target": "severity",
+                    "cardinality": "one"
+                },
+                "source-shape": {
+                    "predicate": "sh:sourceShape",
+                    "target": "shape",
+                    "cardinality": "one"
+                },
+                "source-constraint-component": {
+                    "predicate": "sh:sourceConstraintComponent",
+                    "target": "constraintComponent",
+                    "cardinality": "one"
+                }
+            }
+        },
+        "validation-results": {
+            "name": "validationResult",
+            "class": "sh:ValidationResult"
+        },
+        "severity": {
+            "name": "severity",
+            "class": "sh:Severity",
+            "attributes": {
+                "label": {
+                    //Info, Violation, Warning
+                    "type": "string",
+                    "predicate": "rdfs:label"
+                }
+            }
+        },
+        "shape": {
+            "name": "shape",
+            "class": "sh:Shape"
+        },
+        "constraintComponent": {
+            "name": "constraintComponent",
+            "class": "sh:ConstraintComponent"
+        }
+    }
+}
