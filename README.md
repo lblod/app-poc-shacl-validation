@@ -132,7 +132,7 @@ SELECT * WHERE {
     	?detail ?p_detail ?o_detail.
    }
    OPTIONAL {
-    	?result sh:sh:focusNode ?focusNode.
+    	?result sh:focusNode ?focusNode.
    }
    OPTIONAL {
     	?result sh:resultMessage ?resultMessage.

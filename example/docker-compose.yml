@@ -24,3 +24,12 @@ services:
       MAX_FILE_SIZE: "512MB"
       JAVA_OPTS: "-Xms512m -Xmx512m"
     restart: always
+  resource:
+      image: semtech/mu-cl-resources:1.20.0
+      links:
+        - db:database
+      volumes:
+        - ./config/resources:/config
+      restart: always
+      ports:
+        - 80:80

@@ -1,8 +1,13 @@
 package mu.semtech.poc.shacl.rdf;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.jena.rdf.model.Model;
+import org.apache.jena.rdf.model.Resource;
+import org.apache.jena.rdf.model.ResourceFactory;
+import org.apache.jena.vocabulary.RDF;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.expression.spel.ast.StringLiteral;
 import org.springframework.stereotype.Service;
 
 import java.io.StringWriter;
@@ -11,6 +16,7 @@ import java.net.HttpURLConnection;
 import java.net.PasswordAuthentication;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.UUID;
 
 @Service
 @Slf4j
@@ -39,6 +45,13 @@ public class SparqlService {
         }
         catch (Exception e) {
             log.error("error during upload",e);
+        }
+    }
+
+    public void addUUID(Model model) {
+        for (Resource resource : model.listSubjectsWithProperty(RDF.type).toList()) {
+            String uuid = StringUtils.substring(UUID.randomUUID().toString(), 0, 32);
+            resource.addProperty(ResourceFactory.createProperty("http://mu.semte.ch/vocabularies/core/uuid"), ResourceFactory.createStringLiteral(uuid));
         }
     }
 

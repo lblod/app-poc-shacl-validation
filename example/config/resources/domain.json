@@ -1,0 +1,101 @@
+{
+    "version": "0.1",
+    "prefixes": {
+        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+        "sh": "http://www.w3.org/ns/shacl#"
+    },
+    "resources": {
+        "validation-reports": {
+            "name": "validationReport",
+            "class": "sh:ValidationReport",
+            "attributes": {
+                "conforms": {
+                    "type": "boolean",
+                    "predicate": "sh:conforms"
+                },
+                "shapes-graph-well-formed": {
+                    "type": "boolean",
+                    "predicate": "sh:shapesGraphWellFormed"
+                }
+            },
+            "relationships": {
+                "results": {
+                    "predicate": "sh:result",
+                    "target": "validationResult",
+                    "cardinality": "many"
+                }
+            },
+            "new-resource-base": "http://data.lblod.info/validationReport/"
+        },
+        "validation-results": {
+            "name": "validationResult",
+            "class": "sh:ValidationResult",
+            "attributes": {
+                "focus-node": {
+                    "type": "url",
+                    "predicate": "sh:focusNode"
+                },
+                "result-message": {
+                    "type": "string",
+                    "predicate": "sh:resultMessage"
+                },
+                "result-path": {
+                    "type": "url",
+                    "predicate": "sh:resultPath"
+                },
+                "source-constraint": {
+                    "type": "string",
+                    "predicate": "sh:sourceConstraint"
+                },
+                "value": {
+                    "type": "string",
+                    "predicate": "sh:value"
+                }
+            },
+            "relationships": {
+                "details": {
+                    "predicate": "sh:detail",
+                    "target": "validationResult",
+                    "cardinality": "many"
+                },
+                "result-severity": {
+                    "predicate": "sh:resultSeverity",
+                    "target": "severity",
+                    "cardinality": "one"
+                },
+                "source-shape": {
+                    "predicate": "sh:sourceShape",
+                    "target": "shape",
+                    "cardinality": "one"
+                },
+                "source-constraint-component": {
+                    "predicate": "sh:sourceConstraintComponent",
+                    "target": "constraintComponent",
+                    "cardinality": "one"
+                }
+            },
+            "new-resource-base": "http://data.lblod.info/validationResult/"
+        },
+        "severity": {
+            "name": "severity",
+            "class": "sh:Severity",
+            "attributes": {
+                "label": {
+                    "type": "string",
+                    "predicate": "rdfs:label"
+                }
+            },
+            "new-resource-base": "http://data.lblod.info/severity/"
+        },
+        "shape": {
+            "name": "shape",
+            "class": "sh:Shape",
+            "new-resource-base": "http://data.lblod.info/shape/"
+        },
+        "constraint-component": {
+            "name": "constraintComponent",
+            "class": "sh:ConstraintComponent",
+            "new-resource-base": "http://data.lblod.info/constraintComponent/"
+        }
+    }
+}
