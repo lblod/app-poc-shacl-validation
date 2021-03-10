@@ -3,6 +3,7 @@ package mu.semtech.poc.shacl.rest;
 import mu.semtech.poc.shacl.rdf.ModelUtils;
 import mu.semtech.poc.shacl.rdf.ShaclService;
 import mu.semtech.poc.shacl.rdf.SparqlService;
+import org.apache.jena.rdf.model.Model;
 import org.apache.jena.riot.Lang;
 import org.apache.jena.shacl.ValidationReport;
 import org.springframework.http.MediaType;
@@ -28,7 +29,9 @@ public class ValidationApi {
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = CONTENT_TYPE_TURTLE)
     public ResponseEntity<Void> validate(@RequestBody String dataModel) {
         ValidationReport report = service.validate(dataModel, Lang.TURTLE);
-        sparqlService.persist(report.getModel());
+        Model model = report.getModel();
+        sparqlService.addUUID(model);
+        sparqlService.persist(model);
         return ResponseEntity.ok().build();
     }
 

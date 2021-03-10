@@ -30,13 +30,6 @@ public class SparqlService {
     @Value("${sparql.defaultGraphUri}")
     private String defaultGraphUri;
     public void persist(Model model) {
-
-        for (Resource resource : model.listSubjectsWithProperty(RDF.type).toList()) {
-            String uuid = StringUtils.substring(UUID.randomUUID().toString(), 0, 32);
-            resource.addProperty(ResourceFactory.createProperty("http://mu.semte.ch/vocabularies/core/uuid"), ResourceFactory.createStringLiteral(uuid));
-        }
-
-
         Authenticator.setDefault(new Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(username, password.toCharArray());
@@ -52,6 +45,13 @@ public class SparqlService {
         }
         catch (Exception e) {
             log.error("error during upload",e);
+        }
+    }
+
+    public void addUUID(Model model) {
+        for (Resource resource : model.listSubjectsWithProperty(RDF.type).toList()) {
+            String uuid = StringUtils.substring(UUID.randomUUID().toString(), 0, 32);
+            resource.addProperty(ResourceFactory.createProperty("http://mu.semte.ch/vocabularies/core/uuid"), ResourceFactory.createStringLiteral(uuid));
         }
     }
 
