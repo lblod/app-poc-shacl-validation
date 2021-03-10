@@ -5,7 +5,7 @@
         "sh": "http://www.w3.org/ns/shacl#"
     },
     "resources": {
-        "validation-report": {
+        "validation-reports": {
             "name": "validationReport",
             "class": "sh:ValidationReport",
             "attributes": {
@@ -27,35 +27,35 @@
             },
             "new-resource-base": "http://data.lblod.info/validationReport/"
         },
-        "abstract-results": {
-            "name": "abstractResult",
-            "class": "sh:AbstractResult",
+        "validation-results": {
+            "name": "validationResult",
+            "class": "sh:ValidationResult",
             "attributes": {
                 "focus-node": {
-                    "type":"url",
+                    "type": "url",
                     "predicate": "sh:focusNode"
                 },
                 "result-message": {
-                    "type":"string",
+                    "type": "string",
                     "predicate": "sh:resultMessage"
                 },
                 "result-path": {
-                    "type":"url",
+                    "type": "url",
                     "predicate": "sh:resultPath"
                 },
                 "source-constraint": {
-                    "type":"string",
+                    "type": "string",
                     "predicate": "sh:sourceConstraint"
                 },
                 "value": {
-                    "type":"string",
+                    "type": "string",
                     "predicate": "sh:value"
                 }
             },
             "relationships": {
                 "details": {
                     "predicate": "sh:detail",
-                    "target": "abstractResult",
+                    "target": "validationResult",
                     "cardinality": "many"
                 },
                 "result-severity": {
@@ -74,11 +74,6 @@
                     "cardinality": "one"
                 }
             },
-            "new-resource-base": "http://data.lblod.info/abstractResult/"
-        },
-        "validation-results": {
-            "name": "validationResult",
-            "class": "sh:ValidationResult",
             "new-resource-base": "http://data.lblod.info/validationResult/"
         },
         "severity": {
@@ -86,7 +81,6 @@
             "class": "sh:Severity",
             "attributes": {
                 "label": {
-                    //Info, Violation, Warning
                     "type": "string",
                     "predicate": "rdfs:label"
                 }
