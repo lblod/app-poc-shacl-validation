@@ -5,6 +5,7 @@ defmodule Dispatcher do
     html: ["text/html", "application/xhtml+html"],
     json: ["application/json", "application/vnd.api+json"],
     upload: ["multipart/form-data"],
+    rdf: ["text/turtle"],
     any: [ "*/*" ],
   ]
 
@@ -31,6 +32,13 @@ defmodule Dispatcher do
 
   match "/constraint-component/*path", %{ accept: [:json], layer: :api} do
     Proxy.forward conn, path, "http://resource/constraint-component/"
+  end
+
+  ###############################################################
+  # validation
+  ###############################################################
+  post "/validate", %{ accept: [:rdf], layer: :api} do
+    Proxy.forward conn, [], "http://validation/validate"
   end
 end
 
