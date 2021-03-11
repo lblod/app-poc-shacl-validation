@@ -200,7 +200,7 @@ Data to validate:
 ```
 ##### Conforms = True
 
-Refer to the [validation](#validate-file-using-a-custom-application-profile-file) using the custom application profile:
+Refer to the [validation](#3-validate-file-using-a-custom-application-profile-file) using the custom application profile:
 
 `shapes => ./example/config/applicationProfile-workaround.ttl`
 `data => ./example/config/sparql.ttl`
