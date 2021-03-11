@@ -1,9 +1,11 @@
 package mu.semtech.poc.shacl.rest;
 
+import java.util.Map;
 import mu.semtech.poc.shacl.rdf.ModelUtils;
 import mu.semtech.poc.shacl.rdf.ShaclService;
 import mu.semtech.poc.shacl.rdf.SparqlService;
 import org.apache.jena.rdf.model.Model;
+import org.apache.jena.rdf.model.ResourceFactory;
 import org.apache.jena.riot.Lang;
 import org.apache.jena.shacl.ValidationReport;
 import org.springframework.http.MediaType;
@@ -27,12 +29,13 @@ public class ValidationApi {
     }
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = CONTENT_TYPE_TURTLE)
-    public ResponseEntity<Void> validate(@RequestBody String dataModel) {
+    public ResponseEntity<Map.Entry<String, String>> validate(@RequestBody String dataModel) {
         ValidationReport report = service.validate(dataModel, Lang.TURTLE);
         Model model = report.getModel();
         sparqlService.addUUID(model);
+        String reportId = model.getProperty(report.getResource(), ResourceFactory.createProperty("http://mu.semte.ch/vocabularies/core/uuid")).getLiteral().getString();
         sparqlService.persist(model);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(Map.entry("id", reportId));
     }
 
     @PostMapping(value = "/file-with-shacl", produces = CONTENT_TYPE_TURTLE, consumes = MULTIPART_FORM_DATA_VALUE)
