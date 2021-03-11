@@ -163,26 +163,81 @@ s
 ```
 #### 11. Validation samples
 
-##### Conforms = True
-`https://codex.opendata.api.vlaanderen.be:8888/sparql
-
-`PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-`PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-`PREFIX eli: <http://data.europa.eu/eli/ontology#>
-`
-`SELECT * WHERE {
-`   ?legalResourceSubdivision a eli:LegalResourceSubdivision;
-`       eli:is_part_of ?isDeelVan .
-`   ?isDeelVan a eli:LegalResource .
-`}LIMIT 1
-
-`@prefix rdf:	<http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-`@prefix ns1:	<http://data.europa.eu/eli/ontology#> .
-`
-`<https://codex.vlaanderen.be/id/artikel/1265444>	rdf:type	ns1:LegalResourceSubdivision ;
-`	ns1:is_part_of	<http://www.ejustice.just.fgov.be/eli/besluit/2019/7/19/2019013900> .
-`<http://www.ejustice.just.fgov.be/eli/besluit/2019/7/19/2019013900>	rdf:type	ns1:LegalResource .
-
-
 ##### Conforms = False
+
+SPARQL endpoint
+
+`https://codex.opendata.api.vlaanderen.be:8888/sparql`
+
+SPARQL query
+
+```
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX eli: <http://data.europa.eu/eli/ontology#>
+
+SELECT * WHERE {
+   ?legalResourceSubdivision a eli:LegalResourceSubdivision;
+       eli:is_part_of ?isDeelVan .
+   ?isDeelVan a eli:LegalResource ;
+        eli:has_part ?heeftDeel ;
+}
+LIMIT 1
+```
+
+Data to validate:
+
+```
+@prefix rdf:	<http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix ns1:	<http://data.europa.eu/eli/ontology#> .
+
+<https://codex.vlaanderen.be/id/artikel/1265444>
+    rdf:type	ns1:LegalResourceSubdivision ;
+	ns1:is_part_of	<http://www.ejustice.just.fgov.be/eli/besluit/2019/7/19/2019013900> .
+<http://www.ejustice.just.fgov.be/eli/besluit/2019/7/19/2019013900>
+    rdf:type	ns1:LegalResource ;
+	ns1:has_part	<https://codex.vlaanderen.be/id/artikel/1265444> .
+```
+##### Conforms = True
+
+Refer to the [validation](#validate-file-using-a-custom-application-profile-file) using the custom application profile:
+
+`shapes => ./example/config/applicationProfile-workaround.ttl`
+`data => ./example/config/sparql.ttl`
+
+In details the following properties have been made `OPTIONAL`:
+
+```
+sh:targetClass <http://data.europa.eu/eli/ontology#LegalResource>
+    sh:path <http://data.europa.eu/eli/ontology#passed_by> 
+    sh:path <http://data.europa.eu/eli/ontology#first_date_entry_in_force>
+    sh:path <http://data.europa.eu/eli/ontology#type_document>
+```
+
+SPARQL query:
+
+```
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX eli: <http://data.europa.eu/eli/ontology#>
+
+SELECT * WHERE {
+   ?legalResourceSubdivision a eli:LegalResourceSubdivision;
+       eli:is_part_of ?isDeelVan .
+   ?isDeelVan a eli:LegalResource ;
+        eli:has_part ?heeftDeel ;
+        eli:type_document ?typeDocument .
+
+    OPTIONAL {
+        ?isDeelVan eli:passed_by ?aangenomenDoor.
+    }
+    OPTIONAL {
+        ?isDeelVan eli:first_date_entry_in_force ?inwerkingtreding.
+    }
+    OPTIONAL {
+        ?isDeelVan eli:type_document ?typeDocument.
+    }
+}
+LIMIT 1
+```
 
