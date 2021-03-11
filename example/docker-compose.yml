@@ -15,6 +15,7 @@ services:
     image: semtech/mu-dispatcher:latest
     links:
       - resource:resource
+      - validation:validation
     volumes:
       - ./config/dispatcher:/config
     labels:
