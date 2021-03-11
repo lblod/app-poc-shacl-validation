@@ -124,7 +124,7 @@ SELECT * WHERE {
  ?s
     a sh:ValidationReport;
    	sh:conforms ?conforms.
-
+s
  OPTIONAL {
    ?s sh:result ?result.
    OPTIONAL {
@@ -161,3 +161,28 @@ SELECT * WHERE {
  }
 }
 ```
+#### 11. Validation samples
+
+##### Conforms = True
+`https://codex.opendata.api.vlaanderen.be:8888/sparql
+
+`PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+`PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+`PREFIX eli: <http://data.europa.eu/eli/ontology#>
+`
+`SELECT * WHERE {
+`   ?legalResourceSubdivision a eli:LegalResourceSubdivision;
+`       eli:is_part_of ?isDeelVan .
+`   ?isDeelVan a eli:LegalResource .
+`}LIMIT 1
+
+`@prefix rdf:	<http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+`@prefix ns1:	<http://data.europa.eu/eli/ontology#> .
+`
+`<https://codex.vlaanderen.be/id/artikel/1265444>	rdf:type	ns1:LegalResourceSubdivision ;
+`	ns1:is_part_of	<http://www.ejustice.just.fgov.be/eli/besluit/2019/7/19/2019013900> .
+`<http://www.ejustice.just.fgov.be/eli/besluit/2019/7/19/2019013900>	rdf:type	ns1:LegalResource .
+
+
+##### Conforms = False
+
