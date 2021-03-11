@@ -36,9 +36,8 @@ services:
     volumes:
       - ./config:/config
     ports:
-      - 8090:8090
+      - 8090:80
     environment:
-      SERVER_PORT: "8090"
       DEFAULT_APPLICATION_PROFILE_PATH: "file:/config/applicationProfile.ttl"
       SPARQL_ENDPOINT: "http://db:8890" # todo change that
       MAX_REQUEST_SIZE: "512MB"
