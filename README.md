@@ -171,6 +171,22 @@ SPARQL endpoint
 
 SPARQL query
 
+V1
+```
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX eli: <http://data.europa.eu/eli/ontology#>
+
+SELECT * WHERE {
+   ?legalResourceSubdivision a eli:LegalResourceSubdivision;
+       eli:is_part_of ?isDeelVan .
+   ?isDeelVan a eli:LegalResource ;
+        eli:has_part ?heeftDeel .
+}
+LIMIT 1
+```
+
+V2
 ```
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
@@ -181,12 +197,14 @@ SELECT * WHERE {
        eli:is_part_of ?isDeelVan .
    ?isDeelVan a eli:LegalResource ;
         eli:has_part ?heeftDeel ;
+        eli:type_document ?typeDocument.
 }
 LIMIT 1
 ```
 
 Data to validate:
 
+V1
 ```
 @prefix rdf:	<http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix ns1:	<http://data.europa.eu/eli/ontology#> .
@@ -198,14 +216,34 @@ Data to validate:
     rdf:type	ns1:LegalResource ;
 	ns1:has_part	<https://codex.vlaanderen.be/id/artikel/1265444> .
 ```
+
+V2
+```
+@prefix rdf:	<http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix ns1:	<http://data.europa.eu/eli/ontology#> .
+
+<https://codex.vlaanderen.be/id/artikel/1265444>	
+    rdf:type	ns1:LegalResourceSubdivision ;
+	ns1:is_part_of	<http://www.ejustice.just.fgov.be/eli/besluit/2019/7/19/2019013900> .
+<http://www.ejustice.just.fgov.be/eli/besluit/2019/7/19/2019013900>	
+    rdf:type	ns1:LegalResource ;
+	ns1:has_part	<https://codex.vlaanderen.be/id/artikel/1265444> .
+    
+@prefix ns2:	<https://data.vlaanderen.be/id/concept/AardWetgeving/> .
+
+<http://www.ejustice.just.fgov.be/eli/besluit/2019/7/19/2019013900>	
+    ns1:type_document	ns2:BesluitVanDeVlaamseRegering .
+```
+
+
 ##### Conforms = True
 
 Refer to the [validation](#3-validate-file-using-a-custom-application-profile-file) using the custom application profile:
 
 `shapes => ./example/config/applicationProfile-workaround.ttl`
-`data => ./example/config/sparql.ttl`
+`data => ./example/config/sparql-demp.ttl`
 
-In details the following properties have been made `OPTIONAL`:
+In details the following properties have been made `OPTIONAL` in V1 data:
 
 ```
 sh:targetClass <http://data.europa.eu/eli/ontology#LegalResource>
@@ -225,8 +263,7 @@ SELECT * WHERE {
    ?legalResourceSubdivision a eli:LegalResourceSubdivision;
        eli:is_part_of ?isDeelVan .
    ?isDeelVan a eli:LegalResource ;
-        eli:has_part ?heeftDeel ;
-        eli:type_document ?typeDocument .
+        eli:has_part ?heeftDeel 
 
     OPTIONAL {
         ?isDeelVan eli:passed_by ?aangenomenDoor.
