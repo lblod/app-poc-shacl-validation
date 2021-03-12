@@ -15,7 +15,6 @@
 		sh:description "Het orgaan dat de rechtsgrond heeft goedgekeurd, waardoor er een rechtsgevolg ontstond." ;
 		sh:path <http://data.europa.eu/eli/ontology#passed_by> ;
 		sh:class <http://data.vlaanderen.be/ns/besluit#Bestuursorgaan> ;
-		sh:minCount 1 ;
 		sh:maxCount 1 ;
 	] ;
 	sh:closed false .
@@ -215,7 +214,6 @@
 		sh:description "De datum waarop de regelgeving van kracht wordt." ;
 		sh:path <http://data.europa.eu/eli/ontology#first_date_entry_in_force> ;
 		sh:datatype <http://www.w3.org/2001/XMLSchema#date> ;
-		sh:minCount 1 ;
 		sh:maxCount 1 ;
 	] ;
 	sh:property [
@@ -223,7 +221,6 @@
 		sh:description "Het type van de rechtsgrond." ;
 		sh:path <http://data.europa.eu/eli/ontology#type_document> ;
 		sh:class <http://data.europa.eu/eli/ontology#ResourceType> ;
-		sh:minCount 1 ;
 	] ;
 	sh:closed false .
 
